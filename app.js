@@ -16,6 +16,7 @@ app.use(require("express-session")({
   saveUninitialized: false
 }));
 app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -36,7 +37,16 @@ app.get("/register", function(req, res){
 });
 
 app.post("/register", function(req, res){
-  res.send("")
+  User.register(new User({username: req.body.username}), req.body.password, function(err, user){
+    if(err){
+      console.log(err);
+      return res.render('register');
+    } else {
+      passport.authenticate("local")(req, res, function(){
+        res.redirect("/secret");
+      });
+    }
+  });
 });
 
 app.get("/login", function(req, res){
