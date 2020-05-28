@@ -20,6 +20,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 
+passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -53,8 +54,11 @@ app.get("/login", function(req, res){
   res.render("login");
 });
 
-app.post("/login", function(req, res){
-
+app.post("/login", passport.authenticate("local", {
+  successRedirect: "/secret",
+  failureRedirect: "login"
+}), function(req, res){
+  
 });
 
 app.listen(process.env.PORT, process.env.IP, function(){
