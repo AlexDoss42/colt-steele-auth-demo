@@ -31,6 +31,22 @@ app.get("/secret", function(req, res){
   res.render("secret");
 });
 
+app.get("/register", function(req, res){
+  res.render("register");
+});
+
+app.post("/register", function(req, res){
+  res.send("")
+});
+
+app.get("/login", function(req, res){
+
+});
+
+app.get("/login", function(req, res){
+
+});
+
 app.listen(process.env.PORT, process.env.IP, function(){
   console.log("Its over Anakin,  I have the high Port")
 });
