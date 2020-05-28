@@ -9,7 +9,16 @@ var express                 = require("express"),
 mongoose.connect("mongodb://localhost/auth_demo_app");
 
 var app = express();
+
+app.use(require("express-session")({
+  secret: "asdfa1240i9x^*!#^rn12048ua~@#dfcaser8_2935nsdasdf",
+  resave: false,
+  saveUninitialized: false
+}));
 app.set('view engine', 'ejs');
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.get("/", function(req, res){
   res.render("home");
