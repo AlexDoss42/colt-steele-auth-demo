@@ -61,6 +61,11 @@ app.post("/login", passport.authenticate("local", {
   
 });
 
+app.get("/logout", function(req, res){
+  req.logout();
+  res.redirect("/");
+});
+
 app.listen(process.env.PORT, process.env.IP, function(){
   console.log("Its over Anakin,  I have the high Port")
 });
